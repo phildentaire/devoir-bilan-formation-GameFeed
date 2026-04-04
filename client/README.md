@@ -1,16 +1,43 @@
-# React + Vite
+# GameFeed — Front-end :
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface utilisateur développée avec React et Vite.
 
-Currently, two official plugins are available:
+## Technologies utilisées :
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React
+- Vite
+- React Router DOM (navigation)
+- Axios (requêtes HTTP)
+- ESLint (qualité du code)
 
-## React Compiler
+## Installation :
+```bash
+npm install
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Lancement :
+```bash
+npm run dev
+```
 
-## Expanding the ESLint configuration
+L'appli sera accessible sur `http://localhost:5173`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Pages :
+
+- `/login` — Connexion
+- `/register` — Inscription
+- `/` — Feed principal
+- `/create` — Créer un post
+- `/profile/:id` — Profil utilisateur
+- `/profile/:id/edit` — Modifier son profil
+
+## Structure du projet :
+```
+src/
+├── api/          — Configuration Axios
+├── context/      — Contexte d'authentification
+├── pages/        — Pages de l'application
+├── components/   — Composants réutilisables
+├── App.jsx       — Routing principal
+└── index.css     — Styles globaux
+```
