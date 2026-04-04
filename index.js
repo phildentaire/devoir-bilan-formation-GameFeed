@@ -4,9 +4,6 @@ const express = require('express');
 /** importation du cors pour autoriser les requêtes depuis le Front-End React */
 const cors = require('cors');
 
-/** chargement des variables d'environnement depuis le fichier .env */
-require('dotenv').config();
-
 /** importation des routes de l'application*/
 const authRoutes = require('./routes/auth');   /** routes d'autentification */
 const postRoutes = require('./routes/posts');  /** routes des posts */

@@ -1,6 +1,5 @@
 /** importation du module jsonwebtoken pour vérifier les tokens */
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 /** middleware de vérification du token JWT */
 /** il est exécuté avant chaque route protégée */

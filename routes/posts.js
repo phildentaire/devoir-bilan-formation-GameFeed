@@ -6,7 +6,7 @@ const router = express.Router();
 const authMiddleware = require('../middleware/auth');
 
 /** importation du controller des posts */
-const postController = require('../controllers/postcontroller');
+const postController = require('../controllers/postController');
 
 /** récupération de tous les posts (accessible sans connexion) */
 /** GET/api/posts */

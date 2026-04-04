@@ -6,7 +6,7 @@ const router = express.Router();
 const authMiddleware = require('../middleware/auth');
 
 /** importation du controller des likes */
-const likeController = require('../controllers/likecontroller');
+const likeController = require('../controllers/likeController');
 
 /** liker un post (connexion obligatoire) */
 /** POST/api/likes/:postId */
@@ -16,4 +16,7 @@ router.post('/:postId', authMiddleware, likeController.likePost);
 /** DELETE/api/likes/:postId */
 router.delete('/:postId', authMiddleware, likeController.unlikePost);
 
+/** vérifier si l'utilisateur a liké un post */
+/** GET/api/likes/:postId/check */
+router.get('/:postId/check', authMiddleware, likeController.checkLike);
 module.exports = router;

@@ -6,7 +6,7 @@ const router = express.Router();
 const authMiddleware = require('../middleware/auth');
 
 /** importation du controller des utilisateurs */
-const userController = require('../controllers/usercontroller');
+const userController = require('../controllers/userController');
 
 /** récupération du profil d'un utilisateur */
 /** GET/api/users/:id */

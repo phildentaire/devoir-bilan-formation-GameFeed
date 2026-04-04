@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 /** importation du controller des jeux */
-const gameController = require('../controllers/gamecontroller');
+const gameController = require('../controllers/gameController');
 
 /** récupération de tous les jeux */
 /** GET/api/games */
