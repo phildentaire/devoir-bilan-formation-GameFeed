@@ -20,7 +20,7 @@ npm install
 npm run dev
 ```
 
-L'appli sera accessible sur `http://localhost:5174`
+L'appli sera accessible sur `http://localhost:5173`
 
 ## Pages :
 
