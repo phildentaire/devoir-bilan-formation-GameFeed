@@ -72,8 +72,10 @@ const CreatePostPage = () => {
                 {/* formulaire de création */}
                 <form onSubmit={handleSubmit}>
 
-                    <label style={{ fontSize: '13px', color: '#555' }}>Titre *</label>
+                    <label htmlFor="title" style={{ fontSize: '13px', color: '#555' }}>Titre *</label>
                     <input
+                        id="title"
+                        name="title"
                         type="text"
                         className="form-input"
                         placeholder="Donne un titre à ton post..."
@@ -82,8 +84,10 @@ const CreatePostPage = () => {
                         required
                     />
 
-                    <label style={{ fontSize: '13px', color: '#555' }}>Jeu *</label>
+                    <label htmlFor="gameId" style={{ fontSize: '13px', color: '#555' }}>Jeu *</label>
                     <select
+                        id="gameId"
+                        name="gameId"
                         className="form-input"
                         value={gameId}
                         onChange={(e) => setGameId(e.target.value)}
@@ -97,8 +101,10 @@ const CreatePostPage = () => {
                         ))}
                     </select>
 
-                    <label style={{ fontSize: '13px', color: '#555' }}>Contenu</label>
+                    <label htmlFor="content" style={{ fontSize: '13px', color: '#555' }}>Contenu</label>
                     <textarea
+                        id="content"
+                        name="content"
                         className="form-input"
                         placeholder="Partage ton expérience..."
                         value={content}
@@ -107,8 +113,10 @@ const CreatePostPage = () => {
                         style={{ resize: 'vertical' }}
                     />
 
-                    <label style={{ fontSize: '13px', color: '#555' }}>Image (URL)</label>
+                    <label htmlFor="imageUrl" style={{ fontSize: '13px', color: '#555' }}>Image (URL)</label>
                     <input
+                        id="imageUrl"
+                        name="imageUrl"
                         type="url"
                         className="form-input"
                         placeholder="https://..."

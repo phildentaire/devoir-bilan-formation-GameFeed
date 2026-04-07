@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 /** importation de l'instance axios configurée */
 import api from '../api/axios';
 
-const LikeButton = ({ postId, initialLikes, currentUser }) => {
+const LikeButton = ({ postId, initialLikes, currentUser, onLikeUpdate }) => {
   /** conversion en nombre pour éviter les erreurs d'affichage */
   const [likes, setLikes] = useState(Number(initialLikes) || 0);
 
@@ -39,6 +39,8 @@ const LikeButton = ({ postId, initialLikes, currentUser }) => {
         await api.delete(`/likes/${postId}`);
         setLikes((prev) => prev - 1);
         setLiked(false);
+        /** mise à jour du compteur dans le feed parent */
+        if (onLikeUpdate) onLikeUpdate(postId, -1);
       } else {
         /** liker le post */
         await api.post(`/likes/${postId}`);

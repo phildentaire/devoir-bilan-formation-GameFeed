@@ -4,24 +4,23 @@ const db = require('../config/db');
 
 /** liker un post */
 const likePost = async (userId, postId) => {
-   
     /** vérification que le post existe bien en base */
-    const [post] = await db.execute(
+    const [postRows] = await db.execute(
         'SELECT id FROM posts WHERE id = ?',
         [postId]
     );
 
-    if (!post || post.length === 0) {
+    if (!postRows || postRows.length === 0) {
         throw new Error('Post introuvable');
     }
 
     /** vérification que l'utilisateur n'a pas déjà liké ce post */
-    const [existing] = await db.execute(
+    const [existingRows] = await db.execute(
         'SELECT id FROM likes WHERE user_id = ? AND post_id = ?',
         [userId, postId]
     );
 
-    if (existing && existing.length > 0) {
+    if (existingRows && existingRows.length > 0) {
         throw new Error('Post déjà liké');
     }
 
@@ -39,14 +38,13 @@ const likePost = async (userId, postId) => {
 
 /** unliker un post */
 const unlikePost = async (userId, postId) => {
-    
     /** vérification que le like existe bien */
-    const [existing] = await db.execute(
+    const [existingRows] = await db.execute(
         'SELECT id FROM likes WHERE user_id = ? AND post_id = ?',
         [userId, postId]
     );
 
-    if (!existing || existing.length === 0) {
+    if (!existingRows || existingRows.length === 0) {
         throw new Error('Like introuvable');
     }
 

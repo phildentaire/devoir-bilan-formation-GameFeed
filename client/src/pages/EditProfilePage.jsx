@@ -79,8 +79,10 @@ const EditProfilePage = () => {
                 {/* formulaire de modification */}
                 <form onSubmit={handleSubmit}>
 
-                    <label style={{ fontSize: '13px', color: '#555' }}>Username</label>
+                    <label htmlFor="username" style={{ fontSize: '13px', color: '#555' }}>Username</label>
                     <input
+                        id="username"
+                        name="username"
                         type="text"
                         className="form-input"
                         value={username}
@@ -88,8 +90,10 @@ const EditProfilePage = () => {
                         required
                     />
 
-                    <label style={{ fontSize: '13px', color: '#555' }}>Bio</label>
+                    <label htmlFor="bio" style={{ fontSize: '13px', color: '#555' }}>Bio</label>
                     <textarea
+                        id="bio"
+                        name="bio"
                         className="form-input"
                         placeholder="Parle de toi..."
                         value={bio}
@@ -98,8 +102,10 @@ const EditProfilePage = () => {
                         style={{ resize: 'vertical' }}
                     />
 
-                    <label style={{ fontSize: '13px', color: '#555' }}>Avatar (URL)</label>
+                    <label htmlFor="avatarUrl" style={{ fontSize: '13px', color: '#555' }}>Avatar (URL)</label>
                     <input
+                        id="avatarUrl"
+                        name="avatarUrl"
                         type="url"
                         className="form-input"
                         placeholder="https://..."
