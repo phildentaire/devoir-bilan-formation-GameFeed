@@ -1,31 +1,13 @@
-/** importation de la connexion à la base de données */
-const db = require('../config/db');
+/** controller des posts */
+/** gère les requêtes/réponses HTTP et la validation des entrées */
+const postService = require('../services/postService');
 
-/** récupération de tous les posts avec les infos utilisateur et jeu associés */
+/** récupération de tous les posts */
 exports.getAllPosts = async (req, res) => {
     try {
-        const [rows] = await db.execute(`
-      SELECT 
-        posts.id,
-        posts.title,
-        posts.content,
-        posts.image_url,
-        posts.created_at,
-        users.id AS user_id,
-        users.username,
-        users.avatar_url,
-        games.id AS game_id,
-        games.name AS game_name,
-        COUNT(likes.id) AS likes_count
-      FROM posts
-      JOIN users ON posts.user_id = users.id
-      JOIN games ON posts.game_id = games.id
-      LEFT JOIN likes ON posts.id = likes.post_id
-      GROUP BY posts.id
-      ORDER BY posts.created_at DESC
-    `);
-
-        res.status(200).json(rows);
+        /** appel du service —> retourne un tableau vide si aucun post */
+        const posts = await postService.getAllPosts();
+        res.status(200).json(posts);
 
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur' });
@@ -35,34 +17,21 @@ exports.getAllPosts = async (req, res) => {
 /** récupération des posts d'un utilisateur spécifique */
 exports.getUserPosts = async (req, res) => {
     try {
-        /** récupération de l'id utilisateur depuis l'URL */
         const { userId } = req.params;
 
-        const [rows] = await db.execute(`
-      SELECT
-        posts.id,
-        posts.title,
-        posts.content,
-        posts.image_url,
-        posts.created_at,
-        users.id AS user_id,
-        users.username,
-        users.avatar_url,
-        games.id AS game_id,
-        games.name AS game_name,
-        COUNT(likes.id) AS likes_count
-      FROM posts
-      JOIN users ON posts.user_id = users.id
-      JOIN games ON posts.game_id = games.id
-      LEFT JOIN likes ON posts.id = likes.post_id
-      WHERE posts.user_id = ?
-      GROUP BY posts.id
-      ORDER BY posts.created_at DESC
-    `, [userId]);
+        /** validation de l'id */
+        if (!userId || isNaN(parseInt(userId))) {
+            return res.status(400).json({ message: 'ID utilisateur invalide' });
+        }
 
-        res.status(200).json(rows);
+        /* appel du service */
+        const posts = await postService.getPostsByUserId(userId);
+        res.status(200).json(posts);
 
     } catch (error) {
+        if (error.message === 'ID utilisateur invalide') {
+            return res.status(400).json({ message: error.message });
+        }
         res.status(500).json({ message: 'Erreur serveur' });
     }
 };
@@ -70,26 +39,40 @@ exports.getUserPosts = async (req, res) => {
 /** création d'un nouveau post */
 exports.createPost = async (req, res) => {
     try {
-        /* récupération des données envoyées par le client */
         const { title, content, image_url, game_id } = req.body;
 
         /** récupération de l'id utilisateur depuis le token JWT */
         const user_id = req.user.id;
 
-        /** vérification que les champs obligatoires sont remplis */
-        if (!title || !game_id) {
-            return res.status(400).json({ message: 'Titre et jeu obligatoires' });
+        /** validation renforcée des entrées */
+        if (!title || title.trim() === '') {
+            return res.status(400).json({ message: 'Le titre est obligatoire' });
+        }
+        if (title.trim().length > 150) {
+            return res.status(400).json({ message: 'Le titre ne peut pas dépasser 150 caractères' });
+        }
+        if (!game_id || isNaN(parseInt(game_id))) {
+            return res.status(400).json({ message: 'Le jeu est obligatoire' });
         }
 
-        /** insertion du post en base de données */
-        const [result] = await db.execute(
-            'INSERT INTO posts (user_id, game_id, title, content, image_url) VALUES (?, ?, ?, ?, ?)',
-            [user_id, game_id, title, content, image_url]
+        /** appel du service */
+        const postId = await postService.createPost(
+            user_id,
+            parseInt(game_id),
+            title.trim(),
+            content ? content.trim() : null,
+            image_url ? image_url.trim() : null
         );
 
-        res.status(201).json({ message: 'Post créé avec succès', id: result.insertId });
+        res.status(201).json({ message: 'Post créé avec succès', id: postId });
 
     } catch (error) {
+        if (error.message === 'Jeu introuvable') {
+            return res.status(404).json({ message: error.message });
+        }
+        if (error.message === 'Échec de la création du post') {
+            return res.status(500).json({ message: error.message });
+        }
         res.status(500).json({ message: 'Erreur serveur' });
     }
 };
@@ -97,28 +80,25 @@ exports.createPost = async (req, res) => {
 /** suppression d'un post */
 exports.deletePost = async (req, res) => {
     try {
-        /** récupération de l'id du post depuis l'URL */
         const { id } = req.params;
+
+        /** validation de l'id */
+        if (!id || isNaN(parseInt(id))) {
+            return res.status(400).json({ message: 'ID post invalide' });
+        }
 
         /** récupération de l'id utilisateur depuis le token JWT */
         const user_id = req.user.id;
 
-        /** vérification que le post appartient bien à l'utilisateur connecté */
-        const [rows] = await db.execute(
-            'SELECT * FROM posts WHERE id = ? AND user_id = ?',
-            [id, user_id]
-        );
-
-        if (rows.length === 0) {
-            return res.status(403).json({ message: 'Action non autorisée' });
-        }
-
-        /** suppression du post */
-        await db.execute('DELETE FROM posts WHERE id = ?', [id]);
+        /** appel du service */
+        await postService.deletePost(parseInt(id), user_id);
 
         res.status(200).json({ message: 'Post supprimé avec succès' });
 
     } catch (error) {
+        if (error.message === 'Post introuvable ou accès non autorisé') {
+            return res.status(403).json({ message: error.message });
+        }
         res.status(500).json({ message: 'Erreur serveur' });
     }
 };
