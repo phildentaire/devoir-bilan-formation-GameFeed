@@ -1,14 +1,14 @@
-/** importation de la connexion à la base de données */
-const db = require('../config/db');
+/** controller des jeux */
+/** gère les requêtes/réponses HTTP */
+const gameService = require('../services/gameService');
 
 /** récupération de tous les jeux disponibles */
 exports.getAllGames = async (req, res) => {
     try {
-        const [rows] = await db.execute(
-            'SELECT * FROM games ORDER BY name ASC'
-        );
+        /** appel du service */
+        const games = await gameService.getAllGames();
 
-        res.status(200).json(rows);
+        res.status(200).json(games);
 
     } catch (error) {
         res.status(500).json({ message: 'Erreur serveur' });
