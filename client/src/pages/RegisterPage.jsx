@@ -65,8 +65,10 @@ const RegisterPage = () => {
 
                 {/* formulaire d'inscription */}
                 <form onSubmit={handleSubmit}>
-                    <label style={{ fontSize: '13px', color: '#555' }}>Username</label>
+                    <label htmlFor="username" style={{ fontSize: '13px', color: '#555' }}>Username</label>
                     <input
+                        id="username"
+                        name="username"
                         type="text"
                         className="form-input"
                         placeholder="ton_pseudo_gamer"
@@ -75,8 +77,10 @@ const RegisterPage = () => {
                         required
                     />
 
-                    <label style={{ fontSize: '13px', color: '#555' }}>Email</label>
+                    <label htmlFor="email" style={{ fontSize: '13px', color: '#555' }}>Email</label>
                     <input
+                        id="email"
+                        name="email"
                         type="email"
                         className="form-input"
                         placeholder="exemple@mail.com"
@@ -85,8 +89,10 @@ const RegisterPage = () => {
                         required
                     />
 
-                    <label style={{ fontSize: '13px', color: '#555' }}>Mot de passe</label>
+                    <label htmlFor="password" style={{ fontSize: '13px', color: '#555' }}>Mot de passe</label>
                     <input
+                        id="password"
+                        name="password"
                         type="password"
                         className="form-input"
                         placeholder="••••••••"

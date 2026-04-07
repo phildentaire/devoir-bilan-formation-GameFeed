@@ -12,7 +12,8 @@ exports.likePost = async (req, res) => {
             return res.status(400).json({ message: 'ID post invalide' });
         }
 
-        /** récupération de l'id utilisateur depuis le token JWT const user_id = req.user.id; */
+        /** récupération de l'id utilisateur depuis le token JWT */
+        const user_id = req.user.id;
 
         /** appel du service */
         await likeService.likePost(user_id, parseInt(postId));
