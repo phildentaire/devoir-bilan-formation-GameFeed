@@ -99,3 +99,14 @@ body {
   font-size: 13px;
   margin-bottom: 10px;
 }
+
+/* responsive mobile */
+@media (max-width: 600px) {
+  .container {
+    padding: 0 8px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+}
