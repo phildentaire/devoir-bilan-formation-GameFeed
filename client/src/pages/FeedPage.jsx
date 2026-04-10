@@ -50,19 +50,19 @@ const FeedPage = () => {
     };
 
     if (loading) return (
-        <div style={{ textAlign: 'center', padding: '40px', color: '#888' }}>
+        <section style={{ textAlign: 'center', padding: '40px', color: '#888' }}>
             Chargement...
-        </div>
+        </section>
     );
 
     if (error) return (
-        <div style={{ textAlign: 'center', padding: '40px' }}>
+        <section style={{ textAlign: 'center', padding: '40px' }}>
             <p className="error">{error}</p>
-        </div>
+        </section>
     );
 
     return (
-        <div className="container" style={{ paddingTop: '24px', paddingBottom: '40px' }}>
+        <main className="container" style={{ paddingTop: '24px', paddingBottom: '40px' }}>
 
             {/* titre du feed */}
             <h2 style={{ fontSize: '18px', marginBottom: '20px', color: '#1a1a2e' }}>
@@ -71,12 +71,12 @@ const FeedPage = () => {
 
             {/* liste des posts */}
             {posts.length === 0 ? (
-                <div className="card" style={{ textAlign: 'center', color: '#888' }}>
+                <section className="card" style={{ textAlign: 'center', color: '#888' }}>
                     <p>Aucun post pour le moment.</p>
                     <p style={{ fontSize: '13px', marginTop: '8px' }}>
                         Sois le premier à partager ton expérience !
                     </p>
-                </div>
+                </section>
             ) : (
                 posts.map((post) => (
                     <PostCard
@@ -88,7 +88,7 @@ const FeedPage = () => {
                     />
                 ))
             )}
-        </div>
+        </main>
     );
 };
 

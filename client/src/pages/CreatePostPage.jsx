@@ -58,8 +58,8 @@ const CreatePostPage = () => {
     };
 
     return (
-        <div className="container" style={{ paddingTop: '24px', paddingBottom: '40px' }}>
-            <div className="card" style={{ maxWidth: '500px', margin: '0 auto' }}>
+        <main className="container" style={{ paddingTop: '24px', paddingBottom: '40px' }}>
+            <section className="card" style={{ maxWidth: '500px', margin: '0 auto' }}>
 
                 {/* titre de la page */}
                 <h2 style={{ fontSize: '18px', marginBottom: '20px', color: '#1a1a2e' }}>
@@ -133,8 +133,8 @@ const CreatePostPage = () => {
                     </button>
 
                 </form>
-            </div>
-        </div>
+            </section>
+        </main>
     );
 };
 
