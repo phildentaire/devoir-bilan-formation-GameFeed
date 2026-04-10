@@ -46,22 +46,22 @@ const ProfilePage = () => {
     }, [id]);
 
     if (loading) return (
-        <div style={{ textAlign: 'center', padding: '40px', color: '#888' }}>
+        <section style={{ textAlign: 'center', padding: '40px', color: '#888' }}>
             Chargement...
-        </div>
+        </section>
     );
 
     if (error) return (
-        <div style={{ textAlign: 'center', padding: '40px' }}>
+        <section style={{ textAlign: 'center', padding: '40px' }}>
             <p className="error">{error}</p>
-        </div>
+        </section>
     );
 
     return (
-        <div className="container" style={{ paddingTop: '24px', paddingBottom: '40px' }}>
+        <main className="container" style={{ paddingTop: '24px', paddingBottom: '40px' }}>
 
             {/* carte profil */}
-            <div className="card" style={{ marginBottom: '24px' }}>
+            <section className="card" style={{ marginBottom: '24px' }}>
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -125,7 +125,7 @@ const ProfilePage = () => {
                         <p style={{ fontSize: '11px', color: '#888' }}>Likes reçus</p>
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* posts de l'utilisateur */}
             <h3 style={{ fontSize: '16px', marginBottom: '16px', color: '#1a1a2e' }}>
@@ -133,9 +133,9 @@ const ProfilePage = () => {
             </h3>
 
             {posts.length === 0 ? (
-                <div className="card" style={{ textAlign: 'center', color: '#888' }}>
+                <section className="card" style={{ textAlign: 'center', color: '#888' }}>
                     <p>Aucun post pour le moment.</p>
-                </div>
+                </section>
             ) : (
                 posts.map((post) => (
                     <PostCard
@@ -145,7 +145,7 @@ const ProfilePage = () => {
                     />
                 ))
             )}
-        </div>
+        </main>
     );
 };
 

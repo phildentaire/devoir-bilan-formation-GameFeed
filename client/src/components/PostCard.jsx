@@ -24,7 +24,7 @@ const PostCard = ({ post, currentUser, onLikeUpdate, onDelete }) => {
     };
 
     return (
-        <div className="card">
+        <article className="card">
             <div style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -126,7 +126,7 @@ const PostCard = ({ post, currentUser, onLikeUpdate, onDelete }) => {
                     onLikeUpdate={onLikeUpdate}
                 />
             </div>
-        </div>
+        </article>
     );
 };
 

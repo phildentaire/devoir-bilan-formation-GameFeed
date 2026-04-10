@@ -39,13 +39,13 @@ const LoginPage = () => {
     };
 
     return (
-        <div style={{
+        <main style={{
             minHeight: '100vh',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
         }}>
-            <div className="card" style={{ width: '100%', maxWidth: '400px' }}>
+            <section className="card" style={{ width: '100%', maxWidth: '400px' }}>
 
                 {/* logo et titre */}
                 <div style={{ textAlign: 'center', marginBottom: '24px' }}>
@@ -98,8 +98,8 @@ const LoginPage = () => {
                         S'inscrire
                     </Link>
                 </p>
-            </div>
-        </div>
+            </section>
+        </main>
     );
 };
 
